@@ -35,6 +35,14 @@ public class HintTest {
         order.setUserId(BigInteger.valueOf(11));
         order.setCreateTime(new Date());
         db.save(order);
+        // private boolean isMasterRoute(final SQLType sqlType) {
+        //     return SQLType.DQL != sqlType || MasterVisitedManager.isMasterVisited() || HintManagerHolder.isMasterRouteOnly();
+        // }
+
+        // MasterVisitedManager.isMasterVisited()
+        // 当master库被访问后，后续的sql将使用master库进行访问，故第二次的查询将从master库查询出10调结果
+        List<Order> list2 = db.queryListBySql("select order_id as orderId from t_order limit 10", null, Order.class);
+        Assert.assertEquals(10, list2.size());
     }
 
     @Test
