@@ -3,7 +3,6 @@ package xyz.fz.entity;
 import xyz.fz.api.Order;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
@@ -13,13 +12,13 @@ public final class OrderEntity extends Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     @Override
-    public BigInteger getOrderId() {
+    public Long getOrderId() {
         return super.getOrderId();
     }
 
     @Column(name = "user_id")
     @Override
-    public BigInteger getUserId() {
+    public Long getUserId() {
         return super.getUserId();
     }
 

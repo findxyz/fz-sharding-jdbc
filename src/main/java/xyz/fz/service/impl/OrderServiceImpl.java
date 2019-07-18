@@ -9,7 +9,6 @@ import xyz.fz.entity.OrderItemEntity;
 import xyz.fz.service.OrderService;
 
 import javax.annotation.Resource;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void create(BigInteger userId, Integer productId, Integer productCount) {
+    public void create(Long userId, Integer productId, Integer productCount) {
         OrderEntity orderEntity = createOrder(userId);
         db.save(orderEntity);
         db.save(createOrderItem(userId, orderEntity.getOrderId(), productId, productCount));
@@ -30,12 +29,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void createAtTwoDs(BigInteger userId, Integer productId, Integer productCount) {
+    public void createAtTwoDs(Long userId, Integer productId, Integer productCount) {
         OrderEntity orderEntity = createOrder(userId);
         db.save(orderEntity);
         db.save(createOrderItem(userId, orderEntity.getOrderId(), productId, productCount));
 
-        BigInteger userId2 = userId.add(BigInteger.ONE);
+        Long userId2 = userId + 1L;
         OrderEntity orderEntity2 = createOrder(userId2);
         db.save(orderEntity2);
         db.save(createOrderItem(userId2, orderEntity2.getOrderId(), productId, productCount));
@@ -43,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void batchOrder(BigInteger userId, List<Map> products) {
+    public void batchOrder(Long userId, List<Map> products) {
         List<OrderItemEntity> list = new ArrayList<>();
         OrderEntity orderEntity = createOrder(userId);
         db.save(orderEntity);
@@ -65,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
         return db.queryListBySql("select order_id as orderId, user_id as userId, create_time as createTime from t_order order by create_time desc limit 10", null, Order.class);
     }
 
-    private OrderEntity createOrder(BigInteger userId) {
+    private OrderEntity createOrder(Long userId) {
         // System.out.println("create orderEntity userId: " + userId);
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setUserId(userId);
@@ -73,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
         return orderEntity;
     }
 
-    private OrderItemEntity createOrderItem(BigInteger userId, BigInteger orderId, Integer productId, Integer productCount) {
+    private OrderItemEntity createOrderItem(Long userId, Long orderId, Integer productId, Integer productCount) {
         OrderItemEntity orderItemEntity = new OrderItemEntity();
         orderItemEntity.setOrderId(orderId);
         orderItemEntity.setUserId(userId);

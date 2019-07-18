@@ -14,7 +14,6 @@ import xyz.fz.dao.CommonDao;
 import xyz.fz.entity.OrderEntity;
 
 import javax.annotation.Resource;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -31,8 +30,7 @@ public class HintTest {
         List<Order> list = db.queryListBySql("select order_id as orderId from t_order limit 10", null, Order.class);
         Assert.assertEquals(0, list.size());
         OrderEntity order = new OrderEntity();
-        order.setUserId(BigInteger.valueOf(22));
-        order.setUserId(BigInteger.valueOf(11));
+        order.setUserId(22L);
         order.setCreateTime(new Date());
         db.save(order);
         // private boolean isMasterRoute(final SQLType sqlType) {
@@ -53,8 +51,7 @@ public class HintTest {
         List<Order> list = db.queryListBySql("select order_id as orderId from t_order limit 10", null, Order.class);
         Assert.assertNotEquals(0, list.size());
         OrderEntity order = new OrderEntity();
-        order.setUserId(BigInteger.valueOf(22));
-        order.setUserId(BigInteger.valueOf(11));
+        order.setUserId(22L);
         order.setCreateTime(new Date());
         db.save(order);
     }

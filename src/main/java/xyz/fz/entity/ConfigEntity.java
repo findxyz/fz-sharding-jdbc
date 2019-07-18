@@ -3,7 +3,6 @@ package xyz.fz.entity;
 import xyz.fz.api.Config;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 
 @Entity
 @Table(name = "t_config")
@@ -12,7 +11,7 @@ public final class ConfigEntity extends Config {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     @Override
-    public BigInteger getId() {
+    public Long getId() {
         return super.getId();
     }
 

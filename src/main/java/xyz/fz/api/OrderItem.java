@@ -3,15 +3,14 @@ package xyz.fz.api;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 
 @Data
 public class OrderItem implements Serializable {
-    private BigInteger orderItemId;
+    private Long orderItemId;
 
-    private BigInteger orderId;
+    private Long orderId;
 
-    private BigInteger userId;
+    private Long userId;
 
     private Integer productId;
 

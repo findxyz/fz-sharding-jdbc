@@ -37,7 +37,7 @@ public class ShardingJdbcTest {
         sql += "LIMIT 10 ";
         List<OrderItem> list = db.queryListBySql(sql, null, OrderItem.class);
         System.out.println(list);
-        Assert.assertEquals(10, list.size());
+        Assert.assertNotEquals(0, list.size());
     }
 
     @Test
@@ -78,13 +78,13 @@ public class ShardingJdbcTest {
         sql += "WHERE ";
         sql += "1 = 1 ";
         sql += "AND o.order_id IN :orderIds ";
-        // sql += "AND o.user_id = :userId ";
+        sql += "AND o.user_id = :userId ";
         sql += "ORDER BY ";
         sql += "o.create_time DESC ";
         sql += "LIMIT 100 ";
         Map<String, Object> params = new HashMap<>();
         params.put("orderIds", Lists.newArrayList(355392167706886147L, 355392167706886148L));
-        // params.put("userId", 1562661695648L);
+        params.put("userId", 1562661695648L);
         List<Map> list = db.queryListBySql(sql, params, Map.class);
         System.out.println(list);
     }
