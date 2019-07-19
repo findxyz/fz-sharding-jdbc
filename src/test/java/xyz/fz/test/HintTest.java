@@ -51,7 +51,7 @@ public class HintTest {
         List<Order> list = db.queryListBySql("select order_id as orderId from t_order limit 10", null, Order.class);
         Assert.assertNotEquals(0, list.size());
         OrderEntity order = new OrderEntity();
-        order.setUserId(22L);
+        order.setUserId(222L);
         order.setCreateTime(new Date());
         db.save(order);
     }
